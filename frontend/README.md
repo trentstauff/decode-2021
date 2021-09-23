@@ -1,3 +1,12 @@
+# Install three-globe
+npm i three-globe
+
+# Install ThreeJS
+npm install --save three
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
