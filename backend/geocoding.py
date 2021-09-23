@@ -2,8 +2,6 @@ import requests, os
 
 from dotenv import load_dotenv, find_dotenv, dotenv_values
 
-# API_KEY = 'AIzaSyCqmlVrzMvQZHDK1VqOeoap7mUOFq1dhVc'
-
 def findLatLng(address):
 
     load_dotenv(find_dotenv())
