@@ -1,3 +1,5 @@
 Flask==1.0.2
 Flask_Cors==3.0.7
 flask_restful==0.3.9
+Flask_SocketIO
+python-dotenv==0.15.0
