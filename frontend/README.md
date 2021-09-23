@@ -1,5 +1,5 @@
-# Install three-globe
-npm i three-globe
+# Install react-globe
+npm i react-globe.gl
 
 # Install ThreeJS
 npm install --save three
