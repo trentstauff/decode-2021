@@ -16,14 +16,10 @@ def findLatLng(address):
     response = requests.get(base_url, params=params).json()
 
     # Check if the request was processed successfully
-    # if response['status'] == 'OK':
+    if response['status'] == 'OK':
         # If so, grab the lat and long from the response
-    geometry = response['results'][0]['geometry']    
-    latitude = geometry['location']['lat']
-    longitude = geometry['location']['lng']
-
-    print(latitude, longitude)
+        geometry = response['results'][0]['geometry']    
+        latitude = geometry['location']['lat']
+        longitude = geometry['location']['lng']
 
     return [latitude, longitude]
-
-# findLatLng("Toronto")
