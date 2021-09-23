@@ -1,11 +1,15 @@
-import requests
+import requests, os
 
-API_KEY = 'AIzaSyCqmlVrzMvQZHDK1VqOeoap7mUOFq1dhVc'
+from dotenv import load_dotenv, find_dotenv, dotenv_values
+
+# API_KEY = 'AIzaSyCqmlVrzMvQZHDK1VqOeoap7mUOFq1dhVc'
 
 def findLatLng(address):
 
+    load_dotenv(find_dotenv())
+
     params = {
-        'key': API_KEY,
+        'key': dotenv_values(".env")['API_KEY'],
         'address': address
     }
 
@@ -14,10 +18,14 @@ def findLatLng(address):
     response = requests.get(base_url, params=params).json()
 
     # Check if the request was processed successfully
-    if response['status'] == 'OK':
+    # if response['status'] == 'OK':
         # If so, grab the lat and long from the response
-        geometry = response['results'][0]['geometry']    
-        latitude = geometry['location']['lat']
-        longitude = geometry['location']['lng']
+    geometry = response['results'][0]['geometry']    
+    latitude = geometry['location']['lat']
+    longitude = geometry['location']['lng']
+
+    print(latitude, longitude)
 
     return [latitude, longitude]
+
+# findLatLng("Toronto")
