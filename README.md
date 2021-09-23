@@ -11,7 +11,7 @@ getting started:
 Flask app:
 
 - CD into backend folder
-`flask app.py`
+`python app.py`
 
 React app:
 
