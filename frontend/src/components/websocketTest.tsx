@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { initializeWebsocket } from '../composables/websockets';
 
 export default function WebSocket() {
-  const [data, setData] = useState("");
+  const [data, setData] = useState("Nothing yet");
 
   useEffect(() => {
     initializeWebsocket(setData);
