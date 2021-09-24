@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import Globe from "react-globe.gl";
+import newImage from "./dotsGlobe.png";
+import Globe from "react-globe.gl";
 import newImage from "./163243843914973495.jpg";
 import backgroundImage from "./Screen Shot 2021-09-23 at 7.35.47 PM.png";
 import "./App.css";
@@ -63,6 +65,7 @@ const GlobeContainer = () => {
   return (
     <Globe
       globeImageUrl={newImage}
+      showAtmosphere={false}
       bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
       arcsData={arcsData}
       arcColor={"color"}
