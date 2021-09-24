@@ -2,8 +2,8 @@ import requests, os
 
 from dotenv import load_dotenv, find_dotenv, dotenv_values
 
-def findLatLng(address):
 
+def findLatLng(address):
     load_dotenv(find_dotenv())
 
     params = {
@@ -18,7 +18,7 @@ def findLatLng(address):
     # Check if the request was processed successfully
     if response['status'] == 'OK':
         # If so, grab the lat and long from the response
-        geometry = response['results'][0]['geometry']    
+        geometry = response['results'][0]['geometry']
         latitude = geometry['location']['lat']
         longitude = geometry['location']['lng']
 
