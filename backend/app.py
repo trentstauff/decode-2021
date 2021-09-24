@@ -39,7 +39,7 @@ def generate_large_csv():
 def handle_message():
     print('[INFO] Web client connected: {}'.format(request.sid))
     send({
-            "target": "DASHBOARD" | "LANDING_SITE",
+            "target": "DASHBOARD",
             "event_type": "capture.created",
             "data": {
                 "capture": {
@@ -63,7 +63,7 @@ def handle_message():
             }
         })
     send({
-            "target": "DASHBOARD" | "LANDING_SITE",
+            "target": "DASHBOARD",
             "event_type": "capture.created",
             "data": {
                 "capture": {
@@ -87,7 +87,7 @@ def handle_message():
             }
         })
     send({
-            "target": "DASHBOARD" | "LANDING_SITE",
+            "target": "DASHBOARD",
             "event_type": "capture.created",
             "data": {
                 "capture": {
@@ -111,7 +111,7 @@ def handle_message():
             }
         })
     send({
-            "target": "DASHBOARD" | "LANDING_SITE",
+            "target": "DASHBOARD",
             "event_type": "capture.created",
             "data": {
                 "capture": {
