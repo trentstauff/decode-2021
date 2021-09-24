@@ -7,6 +7,7 @@ import { initializeWebsocket } from "./websockets";
 import {GlobeProvider, useGlobe} from "./context";
 import {camelizeKeys, convertTransactionsFromDjango} from "./helpers";
 import {RawTransaction, TransactionData} from "./types";
+import * as three from 'three';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   )
 }
 
-const BATCHINTERVAL = 20000;
+const BATCHINTERVAL = 60000;
 
 function convertTransactionToArcData(t: TransactionData): object {
   return {
@@ -25,10 +26,7 @@ function convertTransactionToArcData(t: TransactionData): object {
       startLng: t.data.businessDetails.longitude,
       endLat: t.data.merchantDetails.latitude,
       endLng: t.data.merchantDetails.longitude,
-      color: [
-        ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
-        ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
-      ],
+      color: ["#222", "#333", '#444'],
   }
 }
 
@@ -44,7 +42,7 @@ const GlobeContainer = () => {
 
   const flushBatch = () => {
     setInterval(() => {
-      if (newBatch) {
+      if (newBatch != []) {
         console.log("batch ", newBatch)
         setTransactions(newBatch)
         newBatch = [];
@@ -58,7 +56,6 @@ const GlobeContainer = () => {
   }, [])
 
   const arcsData = currentBatch.map(t => convertTransactionToArcData(t));
-  console.log({arcsData})
 
   return (
     <Globe
@@ -66,8 +63,9 @@ const GlobeContainer = () => {
       bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
       arcsData={arcsData}
       arcColor={"color"}
-      arcDashLength={() => Math.random()}
-      arcDashGap={() => Math.random()}
+      arcDashLength={1}
+      arcDashGap={1}
+      arcStroke={0.5}
       arcDashAnimateTime={() => Math.random() * 4000 + 500}
       backgroundImageUrl={backgroundImage}/>
   )
