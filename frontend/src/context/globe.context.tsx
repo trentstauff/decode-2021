@@ -3,7 +3,7 @@ import { useFetchData } from "../helpers";
 import { fetchTransactionsFailure, fetchTransactionsInit, fetchTransactionsSuccess, setTransactions } from "./globe.actions";
 import { defaultGlobeState, GlobeReducer, GlobeStateDispatch } from "./globe.reducer";
 
-const GlobeContext = React.createContext<GlobeStateDispatch>(null);
+const GlobeContext = React.createContext<GlobeStateDispatch | null>(null);
 
 type GlobeProviderProps = {
     children: React.ReactNode;
@@ -12,16 +12,6 @@ type GlobeProviderProps = {
 export const GlobleProvider = (props: GlobeProviderProps) => {
     const [state, dispatch] = React.useReducer(GlobeReducer, defaultGlobeState);
     const value = React.useMemo(()=>({state, dispatch}), [state]);
-    const {apiResponse, isLoading, error} = useFetchData();
-    if(!state.isInitialized && !state.isLoading &&!state.isError){
-        fetchTransactionsInit(dispatch)();
-    }
-    if(state.isLoading && apiResponse && !isLoading){
-        fetchTransactionsSuccess(dispatch)();
-    }
-    if(error){
-        fetchTransactionsFailure(dispatch)();
-    }
     return <GlobeContext.Provider value={value} {...props} />
 }
 

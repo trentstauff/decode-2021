@@ -22,4 +22,4 @@ def findLatLng(address):
         latitude = geometry['location']['lat']
         longitude = geometry['location']['lng']
 
-    return [latitude, longitude]
+    return latitude, longitude
