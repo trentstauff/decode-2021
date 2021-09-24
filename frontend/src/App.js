@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Globe from "react-globe.gl";
 import newImage from "./163243843914973495.jpg";
 import backgroundImage from "./Screen Shot 2021-09-23 at 7.35.47 PM.png";
 //import * as THREE from 'three';
 import "./App.css";
+import { initializeWebsocket } from "./websockets";
+
+const BATCHINTERVAL = 120000
 
 function App() {
-  const N = 50;
+  let batch = [];
+  const addData = (data) => {
+    batch.push(data);
+  }
+
+  const flushBatch = () => {
+    setInterval(() => {
+      if (batch) {
+        // call setTransactionData(batch)
+        console.log("batch ", batch)
+        batch = [];
+      }
+    }, BATCHINTERVAL);
+  }
+
+  useEffect(() => {
+    initializeWebsocket(addData)
+    flushBatch()
+  }, [])
+
+  const N = 20;
   const arcsData = [...Array(N).keys()].map(() => ({
     startLat: (Math.random() - 0.5) * 180,
     startLng: (Math.random() - 0.5) * 360,
