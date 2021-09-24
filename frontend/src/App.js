@@ -6,7 +6,7 @@ import backgroundImage from "./Screen Shot 2021-09-23 at 7.35.47 PM.png";
 import "./App.css";
 
 function App() {
-  const N = 20;
+  const N = 50;
   const arcsData = [...Array(N).keys()].map(() => ({
     startLat: (Math.random() - 0.5) * 180,
     startLng: (Math.random() - 0.5) * 360,
