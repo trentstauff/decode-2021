@@ -1,4 +1,3 @@
-// import { w3cwebsocket as W3CWebSocket } from "websocket";
 import io from 'socket.io-client';
 
 const WEBSOCKETHOST = '127.0.0.1';
@@ -13,13 +12,4 @@ export function initializeWebsocket(addData: (message: any) => void) {
     console.log(data)
     addData(data)
   });
-  // const client = new W3CWebSocket('ws://'+WEBSOCKETHOST+':'+WEBSOCKETPORT);
-  // client.onopen = () => {
-  //   console.log('WebSocket Client Connected');
-  //   client.send("Initialized")
-  // };
-  // client.onmessage = (message) => {
-  //   console.log(message);
-  //   setData(message.data);
-  // };
 }
