@@ -39,40 +39,101 @@ def generate_large_csv():
 def handle_message():
     print('[INFO] Web client connected: {}'.format(request.sid))
     send({
-        "startLat": 120,
-        'startLng': 300,
-        'endLat': 0,
-        'endLng': 100,
-        'color': '#ffffff'
-      })
+            "target": "DASHBOARD" | "LANDING_SITE",
+            "event_type": "capture.created",
+            "data": {
+                "capture": {
+                    "EventType": "",
+                    "transaction_type": "CAPTURE",
+                    "currency": "CAD",
+                    "merchant_currency": "CAD",
+                    "created_at": 1632422976709,
+                    "updated_at": 1632422977059,
+                    "amount": 1384,
+                    "merchant_amount": 1384
+                },
+                "merchant_details": {
+                    "longitude": 100,
+                    "latitude": 100
+                },
+                "business_details": {
+                    "longitude": 100,
+                    "latitude": 100,
+                }
+            }
+        })
     send({
-        "startLat": 121,
-        'startLng': 300,
-        'endLat': 0,
-        'endLng': 100,
-        'color': '#ffffff'
-      })
+            "target": "DASHBOARD" | "LANDING_SITE",
+            "event_type": "capture.created",
+            "data": {
+                "capture": {
+                    "EventType": "",
+                    "transaction_type": "CAPTURE",
+                    "currency": "CAD",
+                    "merchant_currency": "CAD",
+                    "created_at": 1632422976709,
+                    "updated_at": 1632422977059,
+                    "amount": 1384,
+                    "merchant_amount": 1384
+                },
+                "merchant_details": {
+                    "longitude": 200,
+                    "latitude": 200
+                },
+                "business_details": {
+                    "longitude": 300,
+                    "latitude": 300,
+                }
+            }
+        })
     send({
-        "startLat": 122,
-        'startLng': 300,
-        'endLat': 0,
-        'endLng': 100,
-        'color': '#ffffff'
-      })
+            "target": "DASHBOARD" | "LANDING_SITE",
+            "event_type": "capture.created",
+            "data": {
+                "capture": {
+                    "EventType": "",
+                    "transaction_type": "CAPTURE",
+                    "currency": "CAD",
+                    "merchant_currency": "CAD",
+                    "created_at": 1632422976709,
+                    "updated_at": 1632422977059,
+                    "amount": 1384,
+                    "merchant_amount": 1384
+                },
+                "merchant_details": {
+                    "longitude": 400,
+                    "latitude": 400
+                },
+                "business_details": {
+                    "longitude": 100,
+                    "latitude": 100,
+                }
+            }
+        })
     send({
-        "startLat": 123,
-        'startLng': 300,
-        'endLat': 0,
-        'endLng': 100,
-        'color': '#ffffff'
-      })
-    send({
-        "startLat": 124,
-        'startLng': 300,
-        'endLat': 0,
-        'endLng': 100,
-        'color': '#ffffff'
-      })
+            "target": "DASHBOARD" | "LANDING_SITE",
+            "event_type": "capture.created",
+            "data": {
+                "capture": {
+                    "EventType": "",
+                    "transaction_type": "CAPTURE",
+                    "currency": "CAD",
+                    "merchant_currency": "CAD",
+                    "created_at": 1632422976709,
+                    "updated_at": 1632422977059,
+                    "amount": 1384,
+                    "merchant_amount": 1384
+                },
+                "merchant_details": {
+                    "longitude": 700,
+                    "latitude": 100
+                },
+                "business_details": {
+                    "longitude": 600,
+                    "latitude": 600,
+                }
+            }
+        })
 
 @socket_io.on('message')
 def handle_message(data):
