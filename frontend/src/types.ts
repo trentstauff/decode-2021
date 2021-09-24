@@ -49,7 +49,7 @@ export type TransactionData = {
     }
 }
 
-export type DjangoTransaction = {
+export type RawTransaction = {
     target: string;
     event_type: string;
     data: {

@@ -1,6 +1,6 @@
 import {camelCase} from "lodash";
 import { useQuery } from "react-query";
-import { DjangoTransaction, TransactionData } from "./types";
+import { RawTransaction, TransactionData } from "./types";
 
 export const camelizeKeys = (obj: any): any => {
     if (Array.isArray(obj)) {
@@ -18,7 +18,7 @@ export const camelizeKeys = (obj: any): any => {
     return obj;
   };
 
-  export const convertTransactionsFromDjango = (djangoData: DjangoTransaction): TransactionData=> camelizeKeys(djangoData)
+  export const convertTransactionsFromDjango = (djangoData: RawTransaction): TransactionData=> camelizeKeys(djangoData)
 
   export const useFetchData = (
     url: string = "",

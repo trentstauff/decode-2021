@@ -9,7 +9,7 @@ type GlobeProviderProps = {
     children: React.ReactNode;
 }
 
-export const GlobleProvider = (props: GlobeProviderProps) => {
+export const GlobeProvider = (props: GlobeProviderProps) => {
     const [state, dispatch] = React.useReducer(GlobeReducer, defaultGlobeState);
     const value = React.useMemo(()=>({state, dispatch}), [state]);
     return <GlobeContext.Provider value={value} {...props} />

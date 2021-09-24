@@ -30,5 +30,5 @@ def findLatLng(address: str):
 
         # Store the result in our local in-memory storage (dictionary)
         store[address] = (geometry, latitude, longitude)
-
-    return latitude, longitude
+        return latitude, longitude
+    raise Exception(f"Response not OK! {response}")

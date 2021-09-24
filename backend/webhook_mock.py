@@ -138,6 +138,6 @@ if __name__ == "__main__":
 
         package = json.dumps(package)
 
-        res = requests.post(NGROK_LINK, package)
+        res = requests.post(NGROK_LINK + "/webhook", package)
+        time.sleep(0.3)
 
-        time.sleep(0.1)
