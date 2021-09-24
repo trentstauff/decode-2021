@@ -3,36 +3,36 @@ from geocoding import findLatLng
 
 captureObject = '''
 {
-	"event_type": "capture.created",
+	"event_type": "refund.created",
 	"data": {
-		"capture": {
+		"refund": {
 			"EventType": "",
-			"id": "09f2d5a0-1ad1-4817-a5e9-e5c8581d12c6",
-			"external_id": "09f2d5a0-1ad1-4817-a5e9-e5c8581d12c6",
-			"transaction_type": "CAPTURE",
+			"id": "eb6a1ae5-7871-44ed-86bc-33ed65b4b702",
+			"external_id": "eb6a1ae5-7871-44ed-86bc-33ed65b4b702",
+			"transaction_type": "REFUND",
 			"processor_type": "MARQETA",
 			"currency": "CAD",
 			"merchant_currency": "CAD",
-			"card_id": "6f00ec41-5d6e-43ad-9b37-7f38b22f0791",
-			"ledger_business_id": "62116bbc-d9c7-4d20-a61b-1b8af34d3976",
-			"affected_authorization_id": "46f23479-1c56-45dc-ad4d-24651fe9e090",
-			"created_at": 1632422976709,
-			"updated_at": 1632422977059,
+			"card_id": "83ee6a4d-2aa3-44df-acd4-f459e365c53e",
+			"ledger_business_id": "edff2b42-dd97-46df-b33a-2a694ed7b4d3",
+			"affected_authorization_id": "",
+			"created_at": 1632404370600,
+			"updated_at": 1632404370692,
 			"memo": "Approved or completed successfully",
 			"memo_additional_info": "",
-			"amount": 1384,
-			"merchant_amount": 1384,
+			"amount": 10995,
+			"merchant_amount": 10995,
 			"affected_capture_id": "",
 			"refund_state": ""
 		},
 		"merchant_details": {
-			"name": "SQ *TILLYS",
-			"mcc": "5812",
-			"mid": "211366",
-			"postal_code": "K6J 3P5",
-			"state": "67",
-			"city": "Cornwall",
-			"country_code": "CAN"
+			"name": "SP * MVR PLUS",
+			"mcc": "5734",
+			"mid": "KEDRFVOABOSI2VZ",
+			"postal_code": "00918",
+			"state": "ON",
+			"city": "TORONTO",
+			"country_code": "CA"
 		},
 		"business_details": {
 			"name": "Properly Homes",
@@ -53,10 +53,12 @@ def ConvertWebhookToWebsocketEvent(jsonString: str, target: str):
 	newData['target'] = target
 	locationLookup = ""
 
-	dataKeys = ["capture", "merchant_details", "business_details"]
+	# dataKeys = ["capture", "merchant_details", "business_details"]
+	dataKeys = list(data['data'].keys())
+	print(dataKeys)
 	outerDataKeys = list(data)
 
-	dataCaptureKeys = list(data['data']['capture'])
+	# dataCaptureKeys = list(data['data']['capture'])
 	captureDetailKeys = ["EventType", "transaction_type", "currency", "merchant_currency", "created_at", "updated_at", "amount", "merchant_amount"]
 
 	# Merchant is the seller/corporation, business is the customer
@@ -73,9 +75,16 @@ def ConvertWebhookToWebsocketEvent(jsonString: str, target: str):
 				locationLookup = ""
 				if dataKey == "capture":
 					newData['data']['capture'] = {}
+					dataCaptureKeys = list(data['data']['capture'])
 					for dataCaptureKey in dataCaptureKeys:
 						if dataCaptureKey in captureDetailKeys:
 							newData['data']['capture'][dataCaptureKey] = data['data']['capture'][dataCaptureKey]
+				elif dataKey == "refund":
+					newData['data']['refund'] = {}
+					dataCaptureKeys = list(data['data']['refund'])
+					for dataCaptureKey in dataCaptureKeys:
+						if dataCaptureKey in captureDetailKeys:
+							newData['data']['refund'][dataCaptureKey] = data['data']['refund'][dataCaptureKey]
 				elif dataKey == "merchant_details":
 					newData['data']['merchant_details'] = {}
 					for dataMerchantKey in dataMerchantKeys:
@@ -98,3 +107,5 @@ def ConvertWebhookToWebsocketEvent(jsonString: str, target: str):
 		newData['data']['merchant_details']['name'] = data['data']['merchant_details']['name']
 
 	return newData
+
+print(ConvertWebhookToWebsocketEvent(captureObject, "DASHBOARD"))
