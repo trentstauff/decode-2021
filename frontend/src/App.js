@@ -1,33 +1,33 @@
 import React, { useEffect } from "react";
 import Globe from "react-globe.gl";
-import newImage from "./163243843914973495.jpg";
-import backgroundImage from "./Screen Shot 2021-09-23 at 7.35.47 PM.png";
+import newImage from "./dotsGlobe.png";
+import backgroundImage from "./background.png";
 //import * as THREE from 'three';
 import "./App.css";
 import { initializeWebsocket } from "./websockets";
 
-const BATCHINTERVAL = 120000
+const BATCHINTERVAL = 120000;
 
 function App() {
   let batch = [];
   const addData = (data) => {
     batch.push(data);
-  }
+  };
 
   const flushBatch = () => {
     setInterval(() => {
       if (batch) {
         // call setTransactionData(batch)
-        console.log("batch ", batch)
+        console.log("batch ", batch);
         batch = [];
       }
     }, BATCHINTERVAL);
-  }
+  };
 
   useEffect(() => {
-    initializeWebsocket(addData)
-    flushBatch()
-  }, [])
+    initializeWebsocket(addData);
+    flushBatch();
+  }, []);
 
   const N = 20;
   const arcsData = [...Array(N).keys()].map(() => ({
@@ -44,6 +44,7 @@ function App() {
   return (
     <Globe
       globeImageUrl={newImage}
+      showAtmosphere={false}
       bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
       arcsData={arcsData}
       arcColor={"color"}
