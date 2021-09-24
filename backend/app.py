@@ -18,6 +18,9 @@ socket_io = SocketIO(app)
 
 filtered_client_data = {}
 
+# SocketIO object
+socket_io = SocketIO(app)
+
 
 @app.route("/", defaults={'path': ''})
 def serve(path):
@@ -79,7 +82,6 @@ def get_response_data(data):
             }
         }
     }
-
     return response_data
 
 
