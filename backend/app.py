@@ -14,6 +14,7 @@ api = Api(app)
 # SocketIO object
 socket_io = SocketIO(app, cors_allowed_origins="*")
 filtered_client_data = {}
+is_connection_established = False
 
 
 @app.route("/", defaults={'path': ''})
@@ -23,111 +24,29 @@ def serve(path):
 
 @app.route("/webhook", methods=['POST'])
 def process_web_hooks():
+    global is_connection_established
     data = request.get_json()
     get_filtered_client_data(data)
-    socket_io.emit("data_response", json.dumps(filtered_client_data))
-    return "Sent data to front-end"
+
+    if is_connection_established:
+        socket_io.emit("data_response", json.dumps(filtered_client_data))
+        return "Sent data to front-end"
+    else:
+        return "New data fetched"
 
 
 @socket_io.on('connect')
 def handle_message():
+    global is_connection_established
     print('[INFO] Web client connected: {}'.format(request.sid))
-    send({
-        "target": "DASHBOARD",
-        "event_type": "capture.created",
-        "data": {
-            "capture": {
-                "EventType": "",
-                "transaction_type": "CAPTURE",
-                "currency": "CAD",
-                "merchant_currency": "CAD",
-                "created_at": 1632422976709,
-                "updated_at": 1632422977059,
-                "amount": 1384,
-                "merchant_amount": 1384
-            },
-            "merchant_details": {
-                "longitude": 100,
-                "latitude": 100
-            },
-            "business_details": {
-                "longitude": 100,
-                "latitude": 100,
-            }
-        }
-    })
-    send({
-        "target": "DASHBOARD",
-        "event_type": "capture.created",
-        "data": {
-            "capture": {
-                "EventType": "",
-                "transaction_type": "CAPTURE",
-                "currency": "CAD",
-                "merchant_currency": "CAD",
-                "created_at": 1632422976709,
-                "updated_at": 1632422977059,
-                "amount": 1384,
-                "merchant_amount": 1384
-            },
-            "merchant_details": {
-                "longitude": 200,
-                "latitude": 200
-            },
-            "business_details": {
-                "longitude": 300,
-                "latitude": 300,
-            }
-        }
-    })
-    send({
-        "target": "DASHBOARD",
-        "event_type": "capture.created",
-        "data": {
-            "capture": {
-                "EventType": "",
-                "transaction_type": "CAPTURE",
-                "currency": "CAD",
-                "merchant_currency": "CAD",
-                "created_at": 1632422976709,
-                "updated_at": 1632422977059,
-                "amount": 1384,
-                "merchant_amount": 1384
-            },
-            "merchant_details": {
-                "longitude": 400,
-                "latitude": 400
-            },
-            "business_details": {
-                "longitude": 100,
-                "latitude": 100,
-            }
-        }
-    })
-    send({
-        "target": "DASHBOARD",
-        "event_type": "capture.created",
-        "data": {
-            "capture": {
-                "EventType": "",
-                "transaction_type": "CAPTURE",
-                "currency": "CAD",
-                "merchant_currency": "CAD",
-                "created_at": 1632422976709,
-                "updated_at": 1632422977059,
-                "amount": 1384,
-                "merchant_amount": 1384
-            },
-            "merchant_details": {
-                "longitude": 700,
-                "latitude": 100
-            },
-            "business_details": {
-                "longitude": 600,
-                "latitude": 600,
-            }
-        }
-    })
+    is_connection_established = True
+
+
+@socket_io.on("disconnect")
+def handle_disconnect():
+    global is_connection_established
+    print('[INFO] Web client disconnected: {}'.format(request.sid))
+    is_connection_established = False
 
 
 def get_filtered_client_data(data):
