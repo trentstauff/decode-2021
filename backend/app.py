@@ -1,3 +1,4 @@
+from flask import Flask, send_from_directory, request
 import flask
 import json
 from flask import Flask, send_from_directory, request, jsonify
@@ -168,7 +169,6 @@ def get_response_data(data):
         }
     }
     return response_data
-
 
 api.add_resource(ApiHandler, '/flask/hello')
 
