@@ -28,6 +28,7 @@ def process_web_hooks():
     socket_io.emit("data_response", json.dumps(filtered_client_data))
     return "Sent data to front-end"
 
+
 @socket_io.on('connect')
 def handle_message():
     print('[INFO] Web client connected: {}'.format(request.sid))
