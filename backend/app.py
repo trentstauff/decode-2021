@@ -1,25 +1,19 @@
+import flask
 import json
-
-from flask_cors import CORS  # comment this on deployment
-from flask_restful import Api
-from flask_socketio import SocketIO
-
-from api_handler import ApiHandler
 from flask import Flask, send_from_directory, request, jsonify
+from flask_restful import Api, Resource, reqparse
+from flask_cors import CORS  # comment this on deployment
+from flask_socketio import SocketIO, send
+from api_handler import ApiHandler
 from geocoding import findLatLng
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/public')
 CORS(app)  # comment this on deployment, used to silence warning
 api = Api(app)
-api.add_resource(ApiHandler, '/flask/hello')
 
 # SocketIO object
-socket_io = SocketIO(app)
-
+socket_io = SocketIO(app, cors_allowed_origins="*")
 filtered_client_data = {}
-
-# SocketIO object
-socket_io = SocketIO(app)
 
 
 @app.route("/", defaults={'path': ''})
@@ -34,19 +28,110 @@ def process_web_hooks():
     return jsonify(json.dumps(filtered_client_data))
 
 
-@socket_io.on("connect", namespace="/test")
-def connection_started():
+@socket_io.on('connect')
+def handle_message():
     print('[INFO] Web client connected: {}'.format(request.sid))
+    send({
+        "target": "DASHBOARD",
+        "event_type": "capture.created",
+        "data": {
+            "capture": {
+                "EventType": "",
+                "transaction_type": "CAPTURE",
+                "currency": "CAD",
+                "merchant_currency": "CAD",
+                "created_at": 1632422976709,
+                "updated_at": 1632422977059,
+                "amount": 1384,
+                "merchant_amount": 1384
+            },
+            "merchant_details": {
+                "longitude": 100,
+                "latitude": 100
+            },
+            "business_details": {
+                "longitude": 100,
+                "latitude": 100,
+            }
+        }
+    })
+    send({
+        "target": "DASHBOARD",
+        "event_type": "capture.created",
+        "data": {
+            "capture": {
+                "EventType": "",
+                "transaction_type": "CAPTURE",
+                "currency": "CAD",
+                "merchant_currency": "CAD",
+                "created_at": 1632422976709,
+                "updated_at": 1632422977059,
+                "amount": 1384,
+                "merchant_amount": 1384
+            },
+            "merchant_details": {
+                "longitude": 200,
+                "latitude": 200
+            },
+            "business_details": {
+                "longitude": 300,
+                "latitude": 300,
+            }
+        }
+    })
+    send({
+        "target": "DASHBOARD",
+        "event_type": "capture.created",
+        "data": {
+            "capture": {
+                "EventType": "",
+                "transaction_type": "CAPTURE",
+                "currency": "CAD",
+                "merchant_currency": "CAD",
+                "created_at": 1632422976709,
+                "updated_at": 1632422977059,
+                "amount": 1384,
+                "merchant_amount": 1384
+            },
+            "merchant_details": {
+                "longitude": 400,
+                "latitude": 400
+            },
+            "business_details": {
+                "longitude": 100,
+                "latitude": 100,
+            }
+        }
+    })
+    send({
+        "target": "DASHBOARD",
+        "event_type": "capture.created",
+        "data": {
+            "capture": {
+                "EventType": "",
+                "transaction_type": "CAPTURE",
+                "currency": "CAD",
+                "merchant_currency": "CAD",
+                "created_at": 1632422976709,
+                "updated_at": 1632422977059,
+                "amount": 1384,
+                "merchant_amount": 1384
+            },
+            "merchant_details": {
+                "longitude": 700,
+                "latitude": 100
+            },
+            "business_details": {
+                "longitude": 600,
+                "latitude": 600,
+            }
+        }
+    })
 
 
-@socket_io.on("disconnect", namespace="/test")
-def connection_ended():
-    print('[INFO] Web client disconnected: {}'.format(request.sid))
-
-
-@socket_io.on("fetch_data")
-def provide_data_to_caller():
-    socket_io.emit("data_response", json.dumps({}))
+@socket_io.on('message')
+def send_data_to_client():
+    socket_io.emit("data_response", json.dumps(filtered_client_data))
 
 
 def get_filtered_client_data(data):
@@ -85,5 +170,6 @@ def get_response_data(data):
     return response_data
 
 
-app.run(debug=True)
-socket_io.run(app=app, host='0.0.0.0', port=5001)
+api.add_resource(ApiHandler, '/flask/hello')
+
+socket_io.run(app=app, host='127.0.0.1', port=5001, debug=True)
