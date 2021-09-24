@@ -2,11 +2,16 @@ import time
 import random
 import json
 import requests
+from dotenv import load_dotenv, find_dotenv, dotenv_values
 
 if __name__ == "__main__":
     
     while True:
+        
+        load_dotenv(find_dotenv())
 
+        NGROK_LINK = dotenv_values(".env")['NGROK_LINK']
+        
         event = random.choice(["capture.created", "refund.created"])
 
         event_key = event.split(".")[0]
@@ -70,7 +75,7 @@ if __name__ == "__main__":
 
         package = json.dumps(package)
 
-        res = requests.post("<INSERT NGROK LINK HERE>", package)
+        res = requests.post(NGROK_LINK, package)
 
-        time.sleep(5)
+        time.sleep(0.1)
         
