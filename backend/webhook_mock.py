@@ -89,41 +89,6 @@ if __name__ == "__main__":
 
         card = cards[random.randint(0, len(cards) - 1)]
 
-#         source_idx = random.randint(0, len(locations)-1)
-#         source = locations[source_idx]
-#         dest = locations[source_idx-1]
-
-#         package = {
-#         "event_type": event,
-#         "data": {
-#             event_key: {
-#                 "EventType": "",
-#                 "id": "09f2d5a0-1ad1-4817-a5e9-e5c8581d12c6",
-#                 "external_id": "09f2d5a0-1ad1-4817-a5e9-e5c8581d12c6",
-#                 "transaction_type": transaction_type,
-#                 "processor_type": "MARQETA",
-#                 "currency": currency,
-#                 "merchant_currency": currency,
-#                 "card_id": card,
-#                 "ledger_business_id": "62116bbc-d9c7-4d20-a61b-1b8af34d3976",
-#                 "affected_authorization_id": "46f23479-1c56-45dc-ad4d-24651fe9e090",
-#                 "created_at": 1632422976709,
-#                 "updated_at": 1632422977059,
-#                 "memo": "Approved or completed successfully",
-#                 "memo_additional_info": "",
-#                 "amount": amount,
-#                 "merchant_amount": amount,
-#                 "affected_capture_id": "",
-#                 "refund_state": ""
-#             },
-#             "merchant_details": {
-#                 "name": random.choice(["Best Buy", "Float", "Google", "Trent"]),
-#                 "mcc": "5812",
-#                 "mid": "211366",
-#                 "postal_code": dest[0],
-#                 "state": dest[2],
-#                 "city": dest[1],
-#                 "country_code": dest[3]
         source = get_random_address_details()
         dest = get_random_address_details()
 
