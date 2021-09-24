@@ -11,53 +11,65 @@ export class App extends React.Component {
   state = {
     arcsData:
       [{
-        startLat: 120,
-        startLng: 300,
-        endLat: 0,
-        endLng: 100,
-        color: '#ffffff',
-        stroke: 5
-      },
-      {
-        startLat: 70,
-        startLng: 100,
-        endLat: 300,
-        endLng: 360,
-        color: '#ffff00',
-        stroke: .2
+        startLat: (Math.random() - 0.5) * 180,
+        startLng: (Math.random() - 0.5) * 360,
+        endLat: (Math.random() - 0.5) * 180,
+        endLng: (Math.random() - 0.5) * 360,
+        color: ['#faac6e', '#a89a50', '#61804c', '#2a604b', '#0c3e3e','#0c2a2d'][Math.floor(Math.random()*5)],
+        stroke: Math.random()*(1.5-0.2)
       },
       {
         startLat: (Math.random() - 0.5) * 180,
         startLng: (Math.random() - 0.5) * 360,
         endLat: (Math.random() - 0.5) * 180,
         endLng: (Math.random() - 0.5) * 360,
-        color: '#7fab00',
-        stroke: 2
+        color: ['#faac6e', '#a89a50', '#61804c', '#2a604b', '#0c3e3e','#0c2a2d'][Math.floor(Math.random()*5)],
+        stroke: Math.random()*(1.5-0.2)
       },
       {
         startLat: (Math.random() - 0.5) * 180,
         startLng: (Math.random() - 0.5) * 360,
         endLat: (Math.random() - 0.5) * 180,
         endLng: (Math.random() - 0.5) * 360,
-        color: '#38601e',
-        stroke: 1
+        color: ['#faac6e', '#a89a50', '#61804c', '#2a604b', '#0c3e3e','#0c2a2d'][Math.floor(Math.random()*5)],
+        stroke: Math.random()*(1.5-0.2)
+      },
+      {
+        startLat: (Math.random() - 0.5) * 180,
+        startLng: (Math.random() - 0.5) * 360,
+        endLat: (Math.random() - 0.5) * 180,
+        endLng: (Math.random() - 0.5) * 360,
+        color: ['#faac6e', '#a89a50', '#61804c', '#2a604b', '#0c3e3e','#0c2a2d'][Math.floor(Math.random()*5)],
+        stroke: Math.random()*(1.5-0.2)
+      },
+      {
+        startLat: (Math.random() - 0.5) * 180,
+        startLng: (Math.random() - 0.5) * 360,
+        endLat: (Math.random() - 0.5) * 180,
+        endLng: (Math.random() - 0.5) * 360,
+        color: ['#faac6e', '#a89a50', '#61804c', '#2a604b', '#0c3e3e','#0c2a2d'][Math.floor(Math.random()*5)],
+        stroke: Math.random()*(1.5-0.2)
+      },
+      {
+        startLat: (Math.random() - 0.5) * 180,
+        startLng: (Math.random() - 0.5) * 360,
+        endLat: (Math.random() - 0.5) * 180,
+        endLng: (Math.random() - 0.5) * 360,
+        color: ['#faac6e', '#c3a156', '#8f924d', '#61804c', '#165556', '#0c2a2d'][Math.floor(Math.random()*5)],
+        stroke: Math.random()*(1.5-0.2)
       },
     ],
-    // arcsColor:['#ffffff', '#ffff00', '#7fab00', '#38601e'],
-    // arcsStroke: [5, 1, 1, 1]
   };
 
-  changeArcs(arcs){
-    this.setState({arcsData: arcs})
-  }
+  // changeArcs(arcs){
+  //   this.setState({arcsData: arcs})
+  // }
 
   render(){
     return(
       <World
       arcsData={this.state.arcsData}
-      // arcsColor={this.state.arcsColor}
-      // arcsStroke={this.state.arcsStroke}
-      changeArcs={this.changeArcs}
+      // changeArcs={this.changeArcs}
       />
     );
   }

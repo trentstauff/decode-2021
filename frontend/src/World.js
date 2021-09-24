@@ -3,46 +3,33 @@ import { useState, useEffect } from 'react';
 import Globe from 'react-globe.gl';
 import * as THREE from 'three';
 import countries from './countries.geojson';
-import earth from './earth-blue.png'
+import earth from './earth-blue.png';
+import background6 from './background6.png';
+import background5 from './background5.png';
+import background7 from './background7.png';
 
 const World = (props) => {
-    let [countries, setCountries] = useState({ features: []});
-
-    useEffect(() => {
-      // load data
-      fetch(countries).then(res => res.json()).then(setCountries);
-    }, []);
-
-    console.log(countries);
-
-    // const N = 1;
-    // const arcsData = [...Array(N).keys()].map(() => ({
-    //   startLat: (Math.random() - 0.5) * 180,
-    //   startLng: (Math.random() - 0.5) * 360,
-    //   endLat: (Math.random() - 0.5) * 180,
-    //   endLng: (Math.random() - 0.5) * 360,
-    //   color: [['#ffffff','#ffff00', '#7fab00', '#38601e'][Math.round(Math.random() * 3)], ['#ffffff', '#ffff00', '#7fab00', '#38601e'][Math.round(Math.random() * 3)]]
-    // }));
 
     const arcsData = props.arcsData;
-    // const arcsColor = props.arcsColor;
-    // const arcsStroke = props.arcsStroke;
 
     return (<div>
         <Globe
       globeImageUrl={earth}
 
       showGraticules={false}
-      atmosphereColor={'#049FDD'}
-      backgroundColor={'#00222f'}
+      //atmosphereColor={'#83c2db'}
+      atmosphereColor={'white'}
+      atmosphereAltitude={.25}
+      //backgroundColor={'#222222'}
+      backgroundImageUrl={background7}
 
       arcsData={arcsData}
       arcColor={'color'}
       arcStroke={'stroke'}
       arcCircularResolution={10}
-      arcDashLength={.7}
-      arcDashGap={.3}
-      arcDashAnimateTime={1000}
+      arcDashLength={.5}
+      arcDashGap={.5}
+      arcDashAnimateTime={3000}
 
       hexPolygonsData={countries.features}
       hexPolygonResolution={3}
@@ -53,7 +40,6 @@ const World = (props) => {
         Population: <i>${d.POP_EST}</i>
       `}
     />
-    {/* <input onChange={props.changeArcs}/> */}
     </div>
     );
   };
