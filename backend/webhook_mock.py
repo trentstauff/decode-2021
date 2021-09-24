@@ -1,6 +1,7 @@
 import time
 import random
 import json
+import requests
 
 if __name__ == "__main__":
     
@@ -68,6 +69,10 @@ if __name__ == "__main__":
         }
 
         package = json.dumps(package)
-        time.sleep(2)
+
+        res = requests.post("https://b332-2607-fea8-8c9f-4c00-a0b0-8a14-1826-fe1f.ngrok.io/webhook", package)
+
+        print(res.status_code)
+        time.sleep(5)
 
         # TODO: Send this over webhook!
