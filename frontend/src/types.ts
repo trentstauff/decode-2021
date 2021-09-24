@@ -20,3 +20,10 @@ export type Capture = {
     amount: number;
     merchantAmount: number;
 }
+
+
+export type TransactionData = {
+    capture: Capture;
+    merchantDetails: Detail;
+    businessDetails: Detail;
+}

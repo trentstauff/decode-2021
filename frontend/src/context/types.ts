@@ -1,3 +1,5 @@
+import { TransactionData } from "../types";
+
 export enum GlobeActionId {
     FETCH_TRANSACTIONS_INIT,
     FETCH_TRANSACTIONS_SUCCESS,
@@ -18,7 +20,8 @@ type fetchTransactionsFailure = {
 }
 
 type setTransactions = {
-    type: GlobeActionId.SET_TRANSACTIONS
+    type: GlobeActionId.SET_TRANSACTIONS;
+    payload: TransactionData[];
 }
 
-export type GlobalActionTypes = fetchTransactionsInit | fetchTransactionsSuccess | fetchTransactionsFailure | setTransactions;
+export type GlobeActionTypes = fetchTransactionsInit | fetchTransactionsSuccess | fetchTransactionsFailure | setTransactions;
