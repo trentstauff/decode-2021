@@ -25,7 +25,8 @@ def serve(path):
 def process_web_hooks():
     data = request.get_json()
     get_filtered_client_data(data)
-    return jsonify(json.dumps(filtered_client_data))
+    socket_io.emit("data_response", json.dumps(filtered_client_data))
+    return "Sent data to front-end"
 
 
 @socket_io.on('connect')
@@ -127,11 +128,6 @@ def handle_message():
             }
         }
     })
-
-
-@socket_io.on('message')
-def send_data_to_client():
-    socket_io.emit("data_response", json.dumps(filtered_client_data))
 
 
 def get_filtered_client_data(data):
