@@ -3,7 +3,7 @@ import requests, os
 from dotenv import load_dotenv, find_dotenv, dotenv_values
 
 
-def findLatLng(address):
+def find_lat_lng(address):
     load_dotenv(find_dotenv())
 
     params = {
@@ -21,5 +21,5 @@ def findLatLng(address):
         geometry = response['results'][0]['geometry']
         latitude = geometry['location']['lat']
         longitude = geometry['location']['lng']
-
-    return latitude, longitude
+        return latitude, longitude
+    raise Exception(f"Response not OK! {response}")

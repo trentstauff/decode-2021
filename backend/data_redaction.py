@@ -1,17 +1,14 @@
 import json
-from geocoding import findLatLng
+from geocoding import find_lat_lng
 
-def ConvertWebhookToWebsocketEvent(jsonString, target: str):
+def convert_webhook_to_websocket_event(data: dict, target: str) -> dict:
 	# To read json from a string
-	data = json.loads(jsonString)
-
 	newData = {}
 	newData['target'] = target
-	locationLookup = ""
+	location_lookup = ""
 
 	dataKeys = ["capture", "merchant_details", "business_details"]
 	dataKeys = list(data['data'].keys())
-	print(dataKeys)
 	outerDataKeys = list(data)
 
 	# dataCaptureKeys = list(data['data']['capture'])
@@ -28,7 +25,7 @@ def ConvertWebhookToWebsocketEvent(jsonString, target: str):
 		elif outerDataKey == "data":
 			newData['data'] = {}
 			for dataKey in dataKeys:
-				locationLookup = ""
+				location_lookup = ""
 				if dataKey == "capture":
 					newData['data']['capture'] = {}
 					dataCaptureKeys = list(data['data']['capture'])
@@ -45,16 +42,16 @@ def ConvertWebhookToWebsocketEvent(jsonString, target: str):
 					newData['data']['merchant_details'] = {}
 					for dataMerchantKey in dataMerchantKeys:
 						if dataMerchantKey in locationData:
-							locationLookup += data['data']['merchant_details'][dataMerchantKey] + " "
-					lat, lng = findLatLng(locationLookup)
+							location_lookup += data['data']['merchant_details'][dataMerchantKey] + " "
+					lat, lng = find_lat_lng(location_lookup)
 					newData['data']['merchant_details']['latitude'] = lat
 					newData['data']['merchant_details']['longitude'] = lng
 				elif dataKey == "business_details":
 					newData['data']['business_details'] = {}
 					for dataBusinessKey in dataBusinessKeys:
 						if dataBusinessKey in locationData:
-							locationLookup += data['data']['business_details'][dataBusinessKey] + " "
-					lat, lng = findLatLng(locationLookup)
+							location_lookup += data['data']['business_details'][dataBusinessKey] + " "
+					lat, lng = find_lat_lng(location_lookup)
 					newData['data']['business_details']['latitude'] = lat
 					newData['data']['business_details']['longitude'] = lng
 
