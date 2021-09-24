@@ -7,7 +7,7 @@ from flask_cors import CORS  # comment this on deployment
 from flask_socketio import SocketIO, send, emit
 from api_handler import ApiHandler
 from data_redaction import convert_webhook_to_websocket_event
-from geocoding import find_lat_lng
+# from geocoding import findLatLng
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/public')
 CORS(app)  # comment this on deployment, used to silence warning

@@ -1,5 +1,5 @@
 import json
-from geocoding import find_lat_lng
+from geocoding import findLatLng
 
 def convert_webhook_to_websocket_event(data: dict, target: str) -> dict:
 	# To read json from a string
@@ -43,7 +43,7 @@ def convert_webhook_to_websocket_event(data: dict, target: str) -> dict:
 					for dataMerchantKey in dataMerchantKeys:
 						if dataMerchantKey in locationData:
 							location_lookup += data['data']['merchant_details'][dataMerchantKey] + " "
-					lat, lng = find_lat_lng(location_lookup)
+					lat, lng = findLatLng(location_lookup)
 					newData['data']['merchant_details']['latitude'] = lat
 					newData['data']['merchant_details']['longitude'] = lng
 				elif dataKey == "business_details":
@@ -51,7 +51,7 @@ def convert_webhook_to_websocket_event(data: dict, target: str) -> dict:
 					for dataBusinessKey in dataBusinessKeys:
 						if dataBusinessKey in locationData:
 							location_lookup += data['data']['business_details'][dataBusinessKey] + " "
-					lat, lng = find_lat_lng(location_lookup)
+					lat, lng = findLatLng(location_lookup)
 					newData['data']['business_details']['latitude'] = lat
 					newData['data']['business_details']['longitude'] = lng
 
