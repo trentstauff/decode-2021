@@ -25,6 +25,8 @@ const World = (props) => {
     // }));
 
     const arcsData = props.arcsData;
+    // const arcsColor = props.arcsColor;
+    // const arcsStroke = props.arcsStroke;
 
     return (<div>
         <Globe
@@ -36,7 +38,7 @@ const World = (props) => {
 
       arcsData={arcsData}
       arcColor={'color'}
-      arcStroke={1}
+      arcStroke={'stroke'}
       arcCircularResolution={10}
       arcDashLength={.7}
       arcDashGap={.3}
