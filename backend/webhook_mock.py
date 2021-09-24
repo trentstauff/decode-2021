@@ -68,7 +68,7 @@ def _get_random_usa_address_details():
 def _get_random_nat_address_details():
     return random.choice(
         [
-			("CH46 1QT", "Wirral", " ", "UK"),
+	     ("CH46 1QT", "Wirral", " ", "UK"),
             ("SY2 5UT", "Shrewsbury", " ", "UK"),
             ("SM4 5RR", "Morden", " ", "UK"),
             (" ", "Capdepera", " ", "SPAIN"),
@@ -77,6 +77,15 @@ def _get_random_nat_address_details():
             (" ", "Kakau", " ", "GERMANY"),
             (" ", "Muheza", " ", "United Republic of Tanzania"),
             (" ", "Borgoforte", " ", "Italy"),
+	    (" ", "Beijing", " ", "China"),
+            (" ", "New Delhi", " ", "India"),
+            (" ", "Brasilia", " ", "Brazil"),
+            (" ", "Cape Town", " ", "South Africa"),
+            (" ", "Khartoum", " ", "Sudan"),
+            (" ", "Jerusalem", " ", "Israel"),
+            (" ", "Moscow", " ", "Russia"),
+            (" ", "Sydney", " ", "Australia"),
+            (" ", "Stockholm", " ", "Sweden"),
         ]
     )
 	
