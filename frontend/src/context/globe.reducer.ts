@@ -11,7 +11,7 @@ export type GlobeState = {
 
 export type GlobeStateDispatch = {
     state: GlobeState;
-    dispatch: Dispatch<GlobeStateDispatch>
+    dispatch: React.Dispatch<GlobeActionTypes>
 }
 
 export const defaultGlobeState: GlobeState = {

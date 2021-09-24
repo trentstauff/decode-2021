@@ -20,7 +20,7 @@ export const camelizeKeys = (obj: any): any => {
 
   export const convertTransactionsFromDjango = (djangoData: DjangoTransaction): TransactionData=> camelizeKeys(djangoData)
 
-  const useFetchData = (
+  export const useFetchData = (
     url: string,
     options = {},
     deps: any = [],
@@ -44,4 +44,3 @@ export const camelizeKeys = (obj: any): any => {
     );
     return { isLoading, error, apiResponse: data };
   };
-  export default useFetchData;
