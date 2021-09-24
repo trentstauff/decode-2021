@@ -21,7 +21,7 @@ export const camelizeKeys = (obj: any): any => {
   export const convertTransactionsFromDjango = (djangoData: DjangoTransaction): TransactionData=> camelizeKeys(djangoData)
 
   export const useFetchData = (
-    url: string,
+    url: string = "",
     options = {},
     deps: any = [],
     isRefetchByUrl = true,
