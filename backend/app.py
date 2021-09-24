@@ -22,12 +22,6 @@ filtered_client_data = {}
 def serve(path):
     return send_from_directory(app.static_folder, 'index.html')
 
-"""
-    (1) Add all events to here when we receive them
-    (2) For each event in here, send over the socket when requested 
-"""
-ws_events = []
-
 @app.route("/webhook", methods=['POST'])
 def process_web_hooks():
     data = json.loads(request.data)
@@ -141,12 +135,6 @@ def handle_message():
         }
     })
 
-
-# @socket_io.on('message')
-# def send_data_to_client():
-#     while ws_events != []:
-#         ws_event = ws_events.pop()
-#         socket_io.emit(ws_event)
 
 api.add_resource(ApiHandler, '/flask/hello')
 

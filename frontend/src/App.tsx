@@ -17,28 +17,18 @@ function App() {
   )
 }
 
-// const BATCHINTERVAL = 120000;
 const BATCHINTERVAL = 20000;
 
 function convertTransactionToArcData(t: TransactionData): object {
   return {
-    // Commenting out below b/c the businessDetails/vendorDetails are equal
-    //   startLat: t.data.businessDetails.latitude,
-    //   startLng: t.data.businessDetails.longitude,
-    //   endLat: t.data.merchantDetails.latitude,
-    //   endLng: t.data.merchantDetails.longitude,
-    //   color: [
-    //     ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
-    //     ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
-    //   ],
-    startLat: (Math.random() - 0.5) * 180,
-    startLng: (Math.random() - 0.5) * 360,
-    endLat: (Math.random() - 0.5) * 180,
-    endLng: (Math.random() - 0.5) * 360,
-    color: [
-      ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
-      ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
-    ],
+      startLat: t.data.businessDetails.latitude,
+      startLng: t.data.businessDetails.longitude,
+      endLat: t.data.merchantDetails.latitude,
+      endLng: t.data.merchantDetails.longitude,
+      color: [
+        ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
+        ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
+      ],
   }
 }
 
