@@ -28,8 +28,9 @@ if __name__ == "__main__":
 
         card = cards[random.randint(0, len(cards)-1)]
 
-        source = locations[random.randint(0, len(locations)-1)]
-        dest = locations[random.randint(0, len(locations)-1)]
+        source_idx = random.randint(0, len(locations)-1)
+        source = locations[source_idx]
+        dest = locations[source_idx-1]
 
         package = {
         "event_type": event,
@@ -58,10 +59,10 @@ if __name__ == "__main__":
                 "name": random.choice(["Best Buy", "Float", "Google", "Trent"]),
                 "mcc": "5812",
                 "mid": "211366",
-                "postal_code": source[0],
-                "state": source[2],
-                "city": source[1],
-                "country_code": source[3]
+                "postal_code": dest[0],
+                "state": dest[2],
+                "city": dest[1],
+                "country_code": dest[3]
             },
             "business_details": {
                 "name": random.choice(["Properly Homes", "Deloitte", "KOHO", "1Password"]),
@@ -75,7 +76,6 @@ if __name__ == "__main__":
 
         package = json.dumps(package)
 
-        res = requests.post(NGROK_LINK, package)
-
-        time.sleep(0.1)
+        res = requests.post(NGROK_LINK + "/webhook", package)
+        time.sleep(0.3)
         

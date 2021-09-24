@@ -4,9 +4,10 @@ import json
 from flask import Flask, send_from_directory, request, jsonify
 from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS  # comment this on deployment
-from flask_socketio import SocketIO, send
+from flask_socketio import SocketIO, send, emit
 from api_handler import ApiHandler
-from geocoding import findLatLng
+from data_redaction import convert_webhook_to_websocket_event
+from geocoding import find_lat_lng
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/public')
 CORS(app)  # comment this on deployment, used to silence warning
@@ -21,12 +22,23 @@ filtered_client_data = {}
 def serve(path):
     return send_from_directory(app.static_folder, 'index.html')
 
+"""
+    (1) Add all events to here when we receive them
+    (2) For each event in here, send over the socket when requested 
+"""
+ws_events = []
 
 @app.route("/webhook", methods=['POST'])
 def process_web_hooks():
-    data = request.get_json()
-    get_filtered_client_data(data)
-    return jsonify(json.dumps(filtered_client_data))
+    data = json.loads(request.data)
+
+    # TODO: Handle failure events better
+    try:
+        ws_event = convert_webhook_to_websocket_event(data, target='DASHBOARD')
+        socket_io.emit('message', ws_event)
+    except Exception as err:
+        print(err)
+    return jsonify({})
 
 
 @socket_io.on('connect')
@@ -130,45 +142,11 @@ def handle_message():
     })
 
 
-@socket_io.on('message')
-def send_data_to_client():
-    socket_io.emit("data_response", json.dumps(filtered_client_data))
-
-
-def get_filtered_client_data(data):
-    global filtered_client_data
-    filtered_client_data = get_response_data(data)
-    return
-
-
-def get_response_data(data):
-    postal_code = data['data']['business_details']['postal_code']
-    location_coordinates = findLatLng(postal_code)
-    response_data = {
-        "target": "LANDING_SITE",
-        "event_type": "capture.created",
-        "data": {
-            "capture": {
-                "EventType": "",
-                "transaction_type": data['data']['capture']['transaction_type'],
-                "currency": data['data']['capture']['currency'],
-                "merchant_currency": data['data']['capture']['merchant_currency'],
-                "created_at": data['data']['capture']['created_at'],
-                "updated_at": data['data']['capture']['updated_at'],
-                "amount": data['data']['capture']['amount'],
-                "merchant_amount": data['data']['capture']['merchant_amount'],
-            },
-            "merchant_details": {
-                "longitude": location_coordinates[0],
-                "latitude": location_coordinates[1],
-            },
-            "business_details": {
-                "longitude": location_coordinates[0],
-                "latitude": location_coordinates[1],
-            }
-        }
-    }
-    return response_data
+# @socket_io.on('message')
+# def send_data_to_client():
+#     while ws_events != []:
+#         ws_event = ws_events.pop()
+#         socket_io.emit(ws_event)
 
 api.add_resource(ApiHandler, '/flask/hello')
 
