@@ -1,29 +1,58 @@
+import React from 'react';
 import Globe from 'react-globe.gl';
-//import * as THREE from 'three';
+import * as THREE from 'three';
+import World from './World.js'
 import './App.css';
 
 
-function App() {
 
-  const N = 20;
-  const arcsData = [...Array(N).keys()].map(() => ({
-    startLat: (Math.random() - 0.5) * 180,
-    startLng: (Math.random() - 0.5) * 360,
-    endLat: (Math.random() - 0.5) * 180,
-    endLng: (Math.random() - 0.5) * 360,
-    color: [['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]]
-  }));
+export class App extends React.Component {
 
-  return(
-      <Globe
-        globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-        arcsData={arcsData}
-        arcColor={'color'}
-        arcDashLength={() => Math.random()}
-        arcDashGap={() => Math.random()}
-        arcDashAnimateTime={() => Math.random() * 4000 + 500}
-        />
-  );
+  state = {
+    arcsData:
+      [{
+        startLat: 120,
+        startLng: 300,
+        endLat: 0,
+        endLng: 100,
+        color: '#ffffff'
+      },
+      {
+        startLat: 70,
+        startLng: 100,
+        endLat: 300,
+        endLng: 360,
+        color: '#ffff00'
+      },
+      {
+        startLat: (Math.random() - 0.5) * 180,
+        startLng: (Math.random() - 0.5) * 360,
+        endLat: (Math.random() - 0.5) * 180,
+        endLng: (Math.random() - 0.5) * 360,
+        color: '#7fab00'
+      },
+      {
+        startLat: (Math.random() - 0.5) * 180,
+        startLng: (Math.random() - 0.5) * 360,
+        endLat: (Math.random() - 0.5) * 180,
+        endLng: (Math.random() - 0.5) * 360,
+        color: '#38601e'
+      },
+    ]
+  };
+
+  changeArcs(arcs){
+    this.setState({arcsData: arcs})
+  }
+
+  render(){
+    return(
+      <World
+      arcsData={this.state.arcsData}
+      changeArcs={this.changeArcs}
+      />
+    );
+  }
 };
 
 export default App;
