@@ -29,8 +29,8 @@ def datetime_to_unix_ms(dt: datetime.datetime) -> int:
 
 def get_random_address_details() -> typing.Tuple[str, str, str, str]:
     return random.choices(
-        [_get_random_can_address_details, _get_random_usa_address_details],
-        weights=[0.7, 0.3],
+        [_get_random_can_address_details, _get_random_usa_address_details, _get_random_nat_address_details],
+        weights=[0.6, 0.2, 0.2],
         k=1,
     )[0]()
 
@@ -65,7 +65,21 @@ def _get_random_usa_address_details():
         ]
     )
 
-
+def _get_random_nat_address_details():
+    return random.choice(
+        [
+			("CH46 1QT", "Wirral", " ", "UK"),
+            ("SY2 5UT", "Shrewsbury", " ", "UK"),
+            ("SM4 5RR", "Morden", " ", "UK"),
+            (" ", "Capdepera", " ", "SPAIN"),
+            (" ", "Bantayan", " ", "PHILIPPINES"),
+            (" ", "Harda", " ", "INDIA"),
+            (" ", "Kakau", " ", "GERMANY"),
+            (" ", "Muheza", " ", "United Republic of Tanzania"),
+            (" ", "Borgoforte", " ", "Italy"),
+        ]
+    )
+	
 if __name__ == "__main__":
 
     while True:
