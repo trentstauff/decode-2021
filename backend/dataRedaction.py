@@ -1,50 +1,6 @@
 import json
 from geocoding import findLatLng
 
-captureObject = '''
-{
-	"event_type": "refund.created",
-	"data": {
-		"refund": {
-			"EventType": "",
-			"id": "eb6a1ae5-7871-44ed-86bc-33ed65b4b702",
-			"external_id": "eb6a1ae5-7871-44ed-86bc-33ed65b4b702",
-			"transaction_type": "REFUND",
-			"processor_type": "MARQETA",
-			"currency": "CAD",
-			"merchant_currency": "CAD",
-			"card_id": "83ee6a4d-2aa3-44df-acd4-f459e365c53e",
-			"ledger_business_id": "edff2b42-dd97-46df-b33a-2a694ed7b4d3",
-			"affected_authorization_id": "",
-			"created_at": 1632404370600,
-			"updated_at": 1632404370692,
-			"memo": "Approved or completed successfully",
-			"memo_additional_info": "",
-			"amount": 10995,
-			"merchant_amount": 10995,
-			"affected_capture_id": "",
-			"refund_state": ""
-		},
-		"merchant_details": {
-			"name": "SP * MVR PLUS",
-			"mcc": "5734",
-			"mid": "KEDRFVOABOSI2VZ",
-			"postal_code": "00918",
-			"state": "ON",
-			"city": "TORONTO",
-			"country_code": "CA"
-		},
-		"business_details": {
-			"name": "Properly Homes",
-			"postal_code": "K6J 3P5",
-			"state": "67",
-			"city": "Cornwall",
-			"country_code": "CAN"
-		}
-	}
-}
-'''
-
 def ConvertWebhookToWebsocketEvent(jsonString: str, target: str):
 	# To read json from a string
 	data = json.loads(jsonString)
@@ -107,5 +63,3 @@ def ConvertWebhookToWebsocketEvent(jsonString: str, target: str):
 		newData['data']['merchant_details']['name'] = data['data']['merchant_details']['name']
 
 	return newData
-
-print(ConvertWebhookToWebsocketEvent(captureObject, "DASHBOARD"))
