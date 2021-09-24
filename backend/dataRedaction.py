@@ -1,7 +1,7 @@
 import json
 from geocoding import findLatLng
 
-def ConvertWebhookToWebsocketEvent(jsonString: str, target: str):
+def ConvertWebhookToWebsocketEvent(jsonString, target: str):
 	# To read json from a string
 	data = json.loads(jsonString)
 
@@ -9,7 +9,7 @@ def ConvertWebhookToWebsocketEvent(jsonString: str, target: str):
 	newData['target'] = target
 	locationLookup = ""
 
-	# dataKeys = ["capture", "merchant_details", "business_details"]
+	dataKeys = ["capture", "merchant_details", "business_details"]
 	dataKeys = list(data['data'].keys())
 	print(dataKeys)
 	outerDataKeys = list(data)
@@ -62,4 +62,4 @@ def ConvertWebhookToWebsocketEvent(jsonString: str, target: str):
 		newData['data']['business_details']['name'] = data['data']['business_details']['name']
 		newData['data']['merchant_details']['name'] = data['data']['merchant_details']['name']
 
-	return newData
+	return json.dumps(newData)
