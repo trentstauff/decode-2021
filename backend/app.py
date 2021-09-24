@@ -28,13 +28,6 @@ def process_web_hooks():
     socket_io.emit("data_response", data)
     return f"{location}"
 
-@app.route('/large.csv')
-def generate_large_csv():
-    def generate():
-        for row in range(100):
-            yield f"{row}\n"
-    return app.response_class(generate(), mimetype='text/csv')
-
 @socket_io.on('connect')
 def handle_message():
     print('[INFO] Web client connected: {}'.format(request.sid))
@@ -141,5 +134,4 @@ def handle_message(data):
 
 api.add_resource(ApiHandler, '/flask/hello')
 
-# app.run(debug=True)
 socket_io.run(app=app, host='127.0.0.1', port=5001, debug=True)
