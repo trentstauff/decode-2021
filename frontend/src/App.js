@@ -6,6 +6,7 @@ import backgroundImage from "./Screen Shot 2021-09-23 at 7.35.47 PM.png";
 import "./App.css";
 import { initializeWebsocket } from "./websockets";
 
+const BATCHINTERVAL = 120000
 
 function App() {
   let batch = [];
@@ -20,7 +21,7 @@ function App() {
         console.log("batch ", batch)
         batch = [];
       }
-    }, 20000);
+    }, BATCHINTERVAL);
   }
 
   useEffect(() => {
